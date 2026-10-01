@@ -1,12 +1,12 @@
 // To add a new person, import their CSV and add it to this array.
 
-import ailShuhaibCSV from "../ail-shuhaib.csv?raw";
-import gulamNaviCSV from "../gulam-navi.csv?raw";
-import hashimCSV from "../hashim.csv?raw";
-import janibCSV from "../janib.csv?raw";
-import nihalPtCSV from "../nihal-pt.csv?raw";
-import shakirCSV from "../shakir.csv?raw";
-import sinanCSV from "../sinan.csv?raw";
+import ailShuhaibCSV from "./persons/ail-shuhaib.csv?raw";
+import gulamNaviCSV from "./persons/gulam-navi.csv?raw";
+import hashimCSV from "./persons/hashim.csv?raw";
+import janibCSV from "./persons/janib.csv?raw";
+import nihalPtCSV from "./persons/nihal-pt.csv?raw";
+import shakirCSV from "./persons/shakir.csv?raw";
+import sinanCSV from "./persons/sinan.csv?raw";
 
 import { parsePersonCSV } from "../utils/csvParser";
 import type { PersonSchedule } from "../types";
