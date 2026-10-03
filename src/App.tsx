@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import {
   Clock3,
   CalendarDays,
-  UserRound,
-  CalendarDays as CalendarDaysIcon
+  UserRound
 } from "lucide-react";
-import type { PersonSchedule } from "./types";
+import type { PersonSchedule, DayName } from "./types";
 import { loadAllPersons } from "./data/index";
 import { getTodayName, getTomorrowName } from "./utils/scheduleHelpers";
 import Header from "./components/Header";
@@ -13,6 +12,16 @@ import CurrentPeriod from "./components/CurrentPeriod";
 import NextPeriod from "./components/NextPeriod";
 import DayView from "./components/DayView";
 import PersonTimetable from "./components/PersonTimetable";
+
+const DAYS: DayName[] = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 type Tab = "now" | "day" | "person";
 
@@ -39,11 +48,10 @@ export default function App() {
   const today = getTodayName();
   const tomorrow = getTomorrowName();
 
-  let displayDayName = dayTabMode === "today" ? today : tomorrow;
+  let displayDayName: string = dayTabMode === "today" ? today : tomorrow;
   if (dayTabMode === "custom" && customDate) {
     const dt = new Date(customDate);
-    const days: any[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    displayDayName = days[dt.getDay()];
+    displayDayName = DAYS[dt.getDay()];
   }
 
   const tabs: { id: Tab; label: string }[] = [
@@ -128,7 +136,7 @@ export default function App() {
                   </button>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <CalendarDaysIcon className="h-4 w-4 text-cyan-400" />
+                      <CalendarDays className="h-4 w-4 text-cyan-400" />
                     </div>
                     <input
                       type="date"

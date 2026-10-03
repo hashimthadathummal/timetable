@@ -1,6 +1,6 @@
 // To add a new person, import their CSV and add it to this array.
 
-import ailShuhaibCSV from "./persons/ail-shuhaib.csv?raw";
+import aliShuhaibCSV from "./persons/ali-shuhaib.csv?raw";
 import gulamNaviCSV from "./persons/gulam-navi.csv?raw";
 import hashimCSV from "./persons/hashim.csv?raw";
 import janibCSV from "./persons/janib.csv?raw";
@@ -13,8 +13,8 @@ import type { PersonSchedule } from "../types";
 
 const rawFiles: { name: string; csv: string }[] = [
   {
-    name: "Ail Shuhaib",
-    csv: ailShuhaibCSV,
+    name: "Ali Shuhaib",
+    csv: aliShuhaibCSV,
   },
   {
     name: "Gulam Navi",

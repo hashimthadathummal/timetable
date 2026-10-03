@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { PersonSchedule } from "../types";
 import {
   getTodayName,
@@ -33,39 +33,20 @@ export default function PersonTimetable({ persons }: Props) {
   const [customDate, setCustomDate] = useState<string>("");
   const [viewMode, setViewMode] = useState<ViewMode>("single-day");
 
-  useEffect(() => {
-    if (persons.length === 0) {
-      setSelectedName("");
-      return;
-    }
-
-    const exists = persons.some((p) => p.name === selectedName);
-    if (!exists) {
-      setSelectedName(persons[0].name);
-    }
-  }, [persons, selectedName]);
-
-  useEffect(() => {
-    if (persons.length === 0) {
-      return;
-    }
-
-    const exists = persons.some((p) => p.name === selectedName);
-    if (!exists) {
-      setSelectedName(persons[0].name);
-    }
-  }, [persons, selectedName]);
+  const effectiveName =
+    selectedName && persons.some((p) => p.name === selectedName)
+      ? selectedName
+      : persons[0]?.name || "";
 
   const selectedPerson = useMemo(
-    () => persons.find((p) => p.name === selectedName) || null,
-    [persons, selectedName],
+    () => persons.find((p) => p.name === effectiveName) || null,
+    [persons, effectiveName],
   );
 
-  let dayName = dayMode === "today" ? getTodayName() : getTomorrowName();
+  let dayName: string = dayMode === "today" ? getTodayName() : getTomorrowName();
   if (dayMode === "custom" && customDate) {
     const dt = new Date(customDate);
-    const days: any[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    dayName = days[dt.getDay()];
+    dayName = WEEK_DAYS[dt.getDay()];
   }
 
   return (
@@ -83,7 +64,7 @@ export default function PersonTimetable({ persons }: Props) {
         </label>
         <select
           id="person-select"
-          value={selectedName}
+          value={effectiveName}
           onChange={(e) => setSelectedName(e.target.value)}
           className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-gray-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent transition-all"
         >
